@@ -17,8 +17,7 @@ def solution(tickets):
         if top not in routes or len(routes[top]) == 0:
             path.append(st.pop())
         else:
-            st.append(routes[top][-1])
-            routes[top] = routes[top][:-1]
+            st.append(routes[top].pop())
 
     answer = path[::-1]
     return answer
