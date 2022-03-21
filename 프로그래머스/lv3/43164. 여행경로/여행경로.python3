@@ -2,7 +2,7 @@ def solution(tickets):
     routes = dict()
     for (start, end) in tickets:
         routes[start] = routes.get(start, []) + [end]
-        #get(key 값, 디폴트 값) => key의 value 값을 가지고 오는데 없으면 디폴트 값을 가지고 옴
+        #get(key 값, 디폴트 값) => key의 value 값을 리턴 하는데 key가 없으면 디폴트 값을 리턴
 
     for r in routes.keys():
         routes[r].sort(reverse=True)
