@@ -1,10 +1,5 @@
 from collections import deque
 n, m, start = map(int, input().split())
-# inputString = input().split()
-# n, m, start = map(int, inputString[:3].split())
-# graphlist = inputString[3:]
-# print(n, m, start)
-# print(graphlist)
 
 graph = [[] for _ in range(n+1)]
 for _ in range(m):
