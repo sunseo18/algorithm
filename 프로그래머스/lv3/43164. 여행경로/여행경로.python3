@@ -1,0 +1,24 @@
+def solution(tickets):
+    routes = dict()
+    for (start, end) in tickets:
+        routes[start] = routes.get(start, []) + [end]
+        #get(key 값, 디폴트 값) => key의 value 값을 가지고 오는데 없으면 디폴트 값을 가지고 옴
+
+    for r in routes.keys():
+        routes[r].sort(reverse=True)
+        #역순으로 정렬
+
+    st = ['ICN']
+    path = []
+
+    while st:
+        top = st[-1]
+
+        if top not in routes or len(routes[top]) == 0:
+            path.append(st.pop())
+        else:
+            st.append(routes[top][-1])
+            routes[top] = routes[top][:-1]
+
+    answer = path[::-1]
+    return answer
