@@ -1,0 +1,8 @@
+def solution(array, commands):
+    answer = [0] * len(commands)
+
+    for i in range(len(commands)):
+        cutarray = sorted(array[ commands[i][0]-1 : commands[i][1] ])
+        answer[i] = cutarray[commands[i][2]-1]
+        
+    return answer
