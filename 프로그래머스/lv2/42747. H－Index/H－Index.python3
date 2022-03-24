@@ -1,0 +1,13 @@
+def solution(citations):
+    h = len(citations)
+    while True:
+        if h == 0:
+            return 0
+        count = 0;
+        #count: h번 이상 인용된 논문 개수
+        for c in citations:
+            if c >= h:
+                count += 1;
+        if count >= h:
+            return h
+        h -= 1
