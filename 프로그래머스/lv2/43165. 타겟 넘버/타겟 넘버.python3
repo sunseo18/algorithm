@@ -1,0 +1,14 @@
+def solution(numbers, target):
+    queue = [0]
+    result = 0
+    for no in numbers:
+        tmp = []
+        for q in queue:
+            tmp.append(q + no)
+            tmp.append(q - no)
+            queue = tmp
+    for q in queue:
+        if q == target:
+            result += 1
+
+    return result
