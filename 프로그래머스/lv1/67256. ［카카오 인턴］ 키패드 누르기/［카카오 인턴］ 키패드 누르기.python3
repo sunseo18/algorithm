@@ -1,0 +1,31 @@
+def solution(numbers, hand):
+    answer = ''
+    keypadDict = {1: (0, 0), 2: (0, 1), 3: (0, 2), 4: (1, 0), 5: (1, 1), 6: (1, 2), 7: (2, 0), 8: (2, 1), 9: (2, 2), 0: (3, 1)}
+    lhand= (3, 0)
+    rhand= (3, 2)
+    for n in numbers:
+        if n == 1 or n == 4 or n == 7:
+            answer += 'L'
+            lhand = keypadDict[n]
+        elif n == 3 or n == 6 or n == 9:
+            answer += 'R'
+            rhand = keypadDict[n]
+        else: #가운데 줄 일 때
+            tmp = keypadDict[n]
+            ldiff = abs(lhand[0] - tmp[0]) + abs(lhand[1] - tmp[1])
+            rdiff = abs(rhand[0] - tmp[0]) + abs(rhand[1] - tmp[1])
+
+            if ldiff > rdiff: #오른 손이 더 가까울 때
+                answer += 'R'
+                rhand = tmp
+            elif ldiff < rdiff: # 왼 손이 더 가까울 때
+                answer += 'L'
+                lhand = tmp
+            else:               # 거리가 똑같을 때
+                if hand=="right":
+                    answer += 'R'
+                    rhand = tmp
+                else:
+                    answer += 'L'
+                    lhand = tmp
+    return answer
