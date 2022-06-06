@@ -1,0 +1,42 @@
+def solution(new_id):
+    idList = list(new_id)
+    answer = []
+    for i in range(len(idList)):
+        if idList[i].isalpha():
+            idList[i] = idList[i].lower()
+
+    i = 0
+    while i < len(idList):
+        if  not( idList[i].isalpha() or idList[i].isnumeric() or idList[i]=="-" or idList[i]=="_" or idList[i]=="."):
+            idList.pop(i)
+            continue
+        i += 1
+
+    i = 0
+    while i < len(idList):
+        if idList[i] == '.':
+            j = i+1
+            while j < len(idList) and (idList[j] == '.'):
+                idList.pop(j)
+        i += 1
+
+    if idList[0] == '.':
+        idList.pop(0)
+    if len(idList) > 0:
+        if idList[len(idList) - 1] == '.':
+            idList.pop(len(idList) - 1)
+        
+    answer = ''.join(idList)
+
+    if answer == "":
+            answer = 'a'
+    if len(answer) >= 16:
+        answer = answer[:15]
+        if answer[-1] == '.':
+            answer = answer[:-1]
+    elif len(answer) <= 2:
+        char = answer[-1]
+        while len(answer) < 3:
+            answer += char
+    
+    return answer
