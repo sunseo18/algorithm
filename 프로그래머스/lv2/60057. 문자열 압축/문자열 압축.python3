@@ -1,0 +1,26 @@
+def compressLen(word, n):
+    i, result = 0, 0
+    length = len(word)
+    while i <= length - n:
+        tmp = word[i:i+n]
+        result += n
+        cnt = 0
+        while word[i:i+n] == tmp:
+            i += n
+            cnt += 1
+        if cnt > 1:
+            result += len(str(cnt))
+
+    if i < length:
+        result += length - i
+
+    return result
+
+def solution(s):
+    length = len(s)
+    if length == 1:
+         return 1
+    tmpList = [0] * (length-1)
+    for i in range(0, length-1):
+        tmpList[i] = compressLen(s, i+1)
+    return min(tmpList)
