@@ -1,20 +1,19 @@
 n = int(input())
 for _ in range(n):
     vps = list(input())
-    flag = False
+    earlyReturn = False
     stack = []
     for v in vps:
         if v == '(':
             stack.append(v)
         else:
             if len(stack) == 0:
-                flag = True 
-                print('NO')
+                earlyReturn = True 
                 break
 
             stack.pop()
 
-    if stack:
+    if stack or earlyReturn:
         print('NO')
-    elif not flag:
+    else:
         print('YES')
