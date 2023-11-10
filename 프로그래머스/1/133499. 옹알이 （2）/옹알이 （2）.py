@@ -21,16 +21,6 @@ def solution(babbling):
         else:
             if not is_continuous_word(b):
                 answer += 1  
-                
-            
-    # for i in range(len(babbling)):
-    #     for j in range(len(babbling[i])):
-    #         if not babbling[i][j].isnumeric():
-    #             continue
-    #         if j != 0:
-    #             if babbling[i][j-1] == babbling[i][j]:
-    #                 continue
-    #         answer += 1
 
         
     return answer
