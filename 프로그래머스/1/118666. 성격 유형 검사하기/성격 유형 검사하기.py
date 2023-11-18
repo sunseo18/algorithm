@@ -5,11 +5,11 @@ def solution(survey, choices):
     idx_personlaity_dict = { v:k for k,v in personality_idx_dict.items()}
     score_list = [0] * 8
     
-    for i in range(len(choices)):
-        if choices[i] in [1, 2, 3]:
-            score_list[personality_idx_dict[survey[i][0]]] += score_dict[choices[i]]
+    for s, c in zip(survey, choices):
+        if c in [1, 2, 3]:
+            score_list[personality_idx_dict[s[0]]] += score_dict[c]
         else:
-            score_list[personality_idx_dict[survey[i][1]]] += score_dict[choices[i]] 
+            score_list[personality_idx_dict[s[1]]] += score_dict[c] 
     
     for i in range(0, len(score_list), 2):
         if score_list[i] > score_list[i+1]:
