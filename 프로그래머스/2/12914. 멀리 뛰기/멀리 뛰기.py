@@ -1,22 +1,11 @@
-def factorial(n):
-    answer = 1
-    for i in range(1, n+1):
-        answer *= i
-    return answer
-
 def solution(n):
-    answer = 1
+    if n < 3:
+        return n
     
-    if n == 1:
-        return answer 
-    
-
-    for j in range(1, (n//2)+1):
-        i = n - (j*2)
-        print(i, j)
-        if i == 0 or j == 0:
-            answer += 1
-            return answer % 1234567
-        answer += factorial(i+j) // (factorial(i) * factorial(j))
-
-    return answer % 1234567
+    d = [0]*(n+1)
+    d[1] = 1
+    d[2] = 2
+    for i in range(3,n+1):
+        d[i] = d[i-1] + d[i-2]
+        
+    return d[n] % 1234567
