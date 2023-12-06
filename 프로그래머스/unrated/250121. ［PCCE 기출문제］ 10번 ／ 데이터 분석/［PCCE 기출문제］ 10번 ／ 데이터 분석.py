@@ -4,10 +4,7 @@ def solution(data, ext, val_ext, sort_by):
     semi_answer = []
 
     # val_ext보다 더 작은 값들 검색
-    for d in data:
-        if d[ext_dict[ext]] < val_ext:
-            semi_answer.append(d)
-    
+    semi_answer = [ d for d in data if d[ext_dict[ext]] < val_ext ]
 
     # 정렬
     semi_answer.sort( key = lambda k : k[ext_dict[sort_by]])
