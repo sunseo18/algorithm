@@ -1,58 +1,44 @@
 def correct_brackets(brackets):
-    if not brackets:
-        return True
-    
-    stack = []
-    
+    count = 0
     for b in brackets:
-        if not stack:
-            stack.append(b)
-            
+        if b == "(":
+            count += 1
         else:
-            if b == ")" and stack[-1] == "(":
-                stack.pop()
+            count -=1
+        if count < 0:
+            return False
                 
-            else:
-                stack.append(b)
-                
-                
-    if not stack:
-        return True
-    return False
+    return True
         
 def switch(brackets):
+    result = ""
     for i in range(len(brackets)):
         if brackets[i] == ")":
-            brackets[i] = "("
+            result += "("
         else:
-            brackets[i] = ")"
-    return brackets
+            result += ")"
+    return result
 
-# answer = []
 def balanced_to_right(brackets):
-    # global answer
     bracket_len = len(brackets)
     if not brackets:
-        return []
+        return ""
     
     right_num, left_num = 0, 0
-    for i in range(bracket_len):
-        # bracket 비교 
+    for i in range(bracket_len): 
         if brackets[i] == ")":
             right_num += 1
         elif brackets[i] == "(":
             left_num += 1
-        # 균형잡힌 괄호 문자열
+        # 균형잡힌 괄호 문자열이면
         if right_num == left_num:
             u = brackets[:i+1]
             v = brackets[i+1:]
-            print(u,v)
             # 올바른 문자열이 아니면
             if not correct_brackets(u):
-                print("zz")
-                result1 = ['(']
+                result1 = '('
                 result1 += balanced_to_right(v)
-                result1.append(')')
+                result1 += ')'
                 u = u[1:len(u)-1]
                 result1 += switch(u)
                 return result1
@@ -64,7 +50,6 @@ def balanced_to_right(brackets):
                 return result2
             
 def solution(p):
-    p = list(p)
     answer = balanced_to_right(p)
 
     return ''.join(answer)
