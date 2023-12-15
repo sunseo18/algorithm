@@ -26,9 +26,7 @@ def solution(rows, columns, queries):
         # 왼쪽 세로
         for i in range(right[0]-1, left[0]-1, -1):
             index_list.append([i, left[1]])
-        
-        # print(index_list)
-        
+                
         before = no[index_list[0][0]][index_list[0][1]]
         min_no = before
         # 값 옮기기
@@ -36,6 +34,7 @@ def solution(rows, columns, queries):
             tmp = no[index_list[i][0]][index_list[i][1]]
             no[index_list[i][0]][index_list[i][1]] = before
             before = tmp
+            # 최솟값 구하기
             if tmp < min_no:
                 min_no = tmp
                 
