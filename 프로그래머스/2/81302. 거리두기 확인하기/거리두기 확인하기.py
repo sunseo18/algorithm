@@ -1,5 +1,5 @@
-direction = {"right": [0, 1], "left": [0, -1], "up": [-1, 0], "down": [1, 0]}
-direction_two = {"left_up": [-1, -1], "right_up": [-1, 1], "left_down": [1, -1], "right_down": [1, 1]}
+direction = {"right": [0, 1], "down": [1, 0]}
+direction_two = {"left_down": [1, -1], "right_down": [1, 1]}
 # 거리두기 안됐으면 False, 됐으면 True 리턴
 def okay(place):
     for i in range(5):
