@@ -1,6 +1,6 @@
 # [level unrated] 다항식 더하기 - 120863 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120863) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120863#) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 1월 4일 23:51:50
+2024년 1월 4일 23:53:47
 
 ### 문제 설명
 
