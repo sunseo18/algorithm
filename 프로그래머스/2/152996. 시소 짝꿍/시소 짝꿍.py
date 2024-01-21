@@ -1,22 +1,15 @@
-from collections import defaultdict
+from itertools import combinations
+from collections import Counter
+
 def solution(weights):
-    answer = 0
-    weights.sort()
-    dic = defaultdict(int)
-    
-    for weight in weights:
-        two_of_three = weight * 2 / 3
-        two_of_four = weight * 2 / 4
-        three_of_four = weight * 3 / 4
-        
-        if weight in dic:
-            answer += dic[weight]
-        if two_of_three in dic:
-            answer += dic[two_of_three]
-        if two_of_four in dic:
-            answer += dic[two_of_four]
-        if three_of_four in dic:
-            answer += dic[three_of_four]
-        dic[weight] += 1
-            
-    return answer
+    cnt = 0
+    weights = Counter(weights)
+    print(weights)
+    for a, b in combinations(weights.keys(), 2): # 서로 다른 무게
+        if a*2 == b*3 or a*2 == b*4 or a*3 == b*4 or b*2 == a*3 or b*2 == a*4 or b*3 == a*4:
+            cnt += weights[a] * weights[b]
+            print(cnt, weights[a], weights[b])
+    for v in weights.values(): # 같은 무게
+        if v > 1:
+            cnt += sum([i for i in range(1, v)])
+    return cnt
