@@ -24,8 +24,6 @@ def solution(book_time):
     for b in book_time:
         b[1] = add_10_min(b[1])
     
-    # print(book_time)
-    
     end_time = [book_time[0][1]]
     for b in book_time[1:]:
         collapsed = True
@@ -35,7 +33,6 @@ def solution(book_time):
                 collapsed = False
                 break
         if not collapsed:
-            # print("충돌 안 함")
             end_time[i] = b[1]
         else:
             end_time.append(b[1])
