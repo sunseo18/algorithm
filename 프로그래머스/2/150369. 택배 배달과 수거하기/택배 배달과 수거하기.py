@@ -1,18 +1,41 @@
 def solution(cap, n, deliveries, pickups):
-    deliveries = deliveries[::-1]
-    pickups = pickups[::-1]
-    answer = 0
+    last_del=n-1
+    last_pic=n-1
+    distance=0
 
-    have_to_deli = 0
-    have_to_pick = 0
 
-    for i in range(n):
-        have_to_deli += deliveries[i]
-        have_to_pick += pickups[i]
+    while deliveries[last_del]==0:
+        last_del-=1
+        if last_del<0:
+            break
 
-        while have_to_deli > 0 or have_to_pick > 0:
-            have_to_deli -= cap
-            have_to_pick -= cap
-            answer += (n - i) * 2
+    while pickups[last_pic]==0:
+        last_pic-=1 
+        if last_pic<0:
+            break
 
-    return answer
+    while last_del>-1 or last_pic>-1:
+        del_stock=0
+        pic_stock=0
+        distance+=(max(last_del,last_pic)+1)*2
+
+        while del_stock<=cap and last_del>-1:
+            del_stock+=deliveries[last_del]
+            if del_stock>cap:
+                break
+            last_del-= 1 
+
+
+        while pic_stock<=cap and last_pic>-1:
+            pic_stock+=pickups[last_pic]
+            if pic_stock>cap:
+                break
+            last_pic-= 1
+
+        if last_pic>-1:
+            pickups[last_pic]=pic_stock - cap 
+        if last_del>-1:
+            deliveries[last_del]=del_stock - cap
+
+
+    return distance
