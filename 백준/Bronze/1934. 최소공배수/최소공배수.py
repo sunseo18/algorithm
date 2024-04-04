@@ -1,16 +1,17 @@
-T = int(input())
+import sys
 
-numbers = []
-for _ in range(T):
-    numbers.append(map(int, input().split()))
-
-def gcd(a, b):
-    if a % b == 0:
+def maxMod(a, b):
+    tmp = a % b
+    if tmp == 0:
         return b
-    return gcd(b, a % b)
-        
-for i in range(T):
-    A, B = numbers[i]
-    
-    tmp = gcd(A, B)
-    print( A * B // tmp)
+
+    return maxMod(b, tmp)
+
+t = int(sys.stdin.readline().strip())
+
+for i in range(t):
+    n, m = map(int, sys.stdin.readline().strip().split())
+
+    sys.stdout.write(str(n*m // maxMod(n, m)))
+    sys.stdout.write('\n')
+
