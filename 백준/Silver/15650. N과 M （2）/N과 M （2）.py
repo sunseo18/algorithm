@@ -1,22 +1,22 @@
 import sys
-from collections import defaultdict
 
 n, m = map(int, input().split())
 
-numbers = [ i for i in range(1, n+1) ]
-def dfs(tmp, depth):
-    if depth == len(tmp):
-        for t in tmp:
-            sys.stdout.write(str(t))
-            sys.stdout.write(' ')
+arr = [0] * m
+
+def dfs(arr, depth):
+    
+    if depth == m:
+        sys.stdout.write(" ".join(arr))
         sys.stdout.write("\n")
         return
-    for n in numbers:
-        if depth != 0 and tmp[depth-1] >= n:
+
+    for i in range(1, n+1):
+        if depth != 0 and str(i) <= arr[depth-1]:
             continue
-        tmp[depth] = n
         
-        dfs(tmp, depth + 1)
-        tmp[depth] = 0
-        
-dfs([0]*m, 0)
+        arr[depth] = str(i)
+        dfs(arr, depth +1)
+            
+
+dfs(arr, 0)
