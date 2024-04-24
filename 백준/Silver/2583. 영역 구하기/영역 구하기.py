@@ -14,7 +14,7 @@ for i in range(k):
         for y in range(leftY, rightY):
             array[x][y] = 1
 
-def dfs(i, j, depth):
+def dfs(i, j):
     global result
     if not ((n > i >= 0) and (m > j >= 0)):
         return
@@ -24,13 +24,12 @@ def dfs(i, j, depth):
     
     else:
         array[i][j] = 1
-        depth += 1
         result += 1
 
-        dfs(i-1, j, depth)
-        dfs(i+1, j, depth)
-        dfs(i, j-1, depth)
-        dfs(i, j+1, depth)
+        dfs(i-1, j)
+        dfs(i+1, j)
+        dfs(i, j-1)
+        dfs(i, j+1)
 
 answersLength = 0
 answers = []
@@ -38,7 +37,7 @@ for i in range(n):
     for j in range(m):
         if array[i][j] != 1:
             result = 0
-            dfs(i, j, 0)
+            dfs(i, j)
             if result != 0:
                 answersLength += 1
                 answers.append(result)
