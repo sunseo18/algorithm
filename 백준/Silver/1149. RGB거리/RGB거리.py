@@ -1,9 +1,18 @@
-n = int(input())
-p = []
+import sys
+
+n = int(sys.stdin.readline().strip())
+
+array = []
+
 for i in range(n):
-    p.append(list(map(int, input().split())))
-for i in range(1, len(p)):
-    p[i][0] = min(p[i - 1][1], p[i - 1][2]) + p[i][0]
-    p[i][1] = min(p[i - 1][0], p[i - 1][2]) + p[i][1]
-    p[i][2] = min(p[i - 1][0], p[i - 1][1]) + p[i][2]
-print(min(p[n - 1][0], p[n - 1][1], p[n - 1][2]))
+    array.append(list(map(int, sys.stdin.readline().strip().split())))
+
+for i in range(1, n):
+    for j in range(3):
+        tmp = []
+        for k in range(3):
+            if k != j:
+                tmp.append(array[i-1][k] + array[i][j])
+        array[i][j] = min(tmp)
+
+print(min(array[n-1]))
