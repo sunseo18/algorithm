@@ -13,37 +13,34 @@ for i in range(R):
 queue = deque()
 queue.append([R-1, 0])
 
-visited = [[0 for _ in range(C)] for _ in range(R)]
-visited[R-1][0] = 1
+visited = [[False for _ in range(C)] for _ in range(R)]
 answer = 0
 
 no = 0
 flag = False
-def dfs(map, cur_i, cur_j, visited):
+def dfs(map, cur_i, cur_j, visited, depth):
     global no
     global flag
 
-    if visited[cur_i][cur_j] > K:
-        visited[cur_i][cur_j] = 0
+    if depth > K:
         return
 
     # 목표 지점에 왔을 때
     if cur_i == 0 and cur_j == C-1:
-        if visited[cur_i][cur_j] == K:
+        if depth == K:
             no += 1
-        visited[cur_i][cur_j] = 0
         return
 
+    visited[cur_i][cur_j] = True
 
     for i in range(4):
         next_i = cur_i + dy[i]
         next_j = cur_j + dx[i]
-        if 0<=next_i<R and 0<=next_j<C and map[next_i][next_j] != 'T' and visited[next_i][next_j] == 0:
-            visited[next_i][next_j] = visited[cur_i][cur_j] + 1
-            dfs(map, next_i, next_j, visited)
+        if 0<=next_i<R and 0<=next_j<C and map[next_i][next_j] != 'T' and not visited[next_i][next_j]:
+            dfs(map, next_i, next_j, visited, depth + 1)
 
-    visited[cur_i][cur_j] = 0
+    visited[cur_i][cur_j] = False
     
-dfs(map, R-1, 0, visited)
+dfs(map, R-1, 0, visited, 1)
 
 print(no)
