@@ -1,23 +1,19 @@
 import sys
-from collections import defaultdict
 
 n, m = map(int, sys.stdin.readline().strip().split())
 
-no_array = sys.stdin.readline().strip().split()
+no_array = list(set(map(int, sys.stdin.readline().strip().split())))
 
 array_length = len(no_array)
-no_array.sort(key = lambda k : int(k))
-array_dict = defaultdict(bool)
+
+no_array.sort()
 
 def dfs(tmp, start, depth):
     if start == depth:
-        text = ''.join(tmp)
-        if not array_dict[text]:
-            for t in tmp:
-                sys.stdout.write(t)
-                sys.stdout.write(" ")
-            sys.stdout.write('\n')
-            array_dict[text] = True
+        for t in tmp:
+            sys.stdout.write(str(t))
+            sys.stdout.write(" ")
+        sys.stdout.write('\n')
         return
 
     for no in no_array:
