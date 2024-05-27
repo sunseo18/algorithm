@@ -1,14 +1,11 @@
 import sys
 
-N = int(sys.stdin.readline())
+n = int(sys.stdin.readline().strip())
 
-if N == 1:
-    print(3)
+array = [0, 3, 7]
 
-else:
-    dp = [1 for _ in range(N+1)]
+for i in range(3, n+1):
+    array.append((2*array[i-1] + array[i-2]) % 9901)
+    
 
-    dp[1], dp[2] = 3, 7
-    for i in range(3, N+1):
-        dp[i] = (2*dp[i-1] + dp[i-2]) %9901
-    print(dp[N])
+print(array[n])
