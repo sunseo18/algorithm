@@ -8,15 +8,13 @@ di = [1, -1, 0, 0]
 dj = [0, 0, 1, -1]
 
 def dfs(i, j, maps, m, n):
-    if maps[i][j] == 0:
-        return
 
     maps[i][j] = 0
     
     for d in range(4):
         ni, nj = i + di[d], j + dj[d]
 
-        if 0 <= ni < n and 0 <= nj < m:
+        if 0 <= ni < n and 0 <= nj < m and maps[ni][nj] != 0:
             dfs(ni, nj, maps, m, n)
             
     
