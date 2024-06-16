@@ -8,22 +8,24 @@ a, b = 0, 0
 
 n = 2**n
 while n != 1:
-    n = n//2
-
-    if r < n:
-        if c < n:
+    half_n = n//2
+    if a <= r < a+half_n:
+        if b <= c < b+half_n:
             pass
         else:
-            min_answer += n*n
-            c -= n
+            min_answer += n*n//4
+            b += half_n
     else:
-        if c < n:
-            min_answer += n*n*2
-            r -= n
+        if b <= c < b+n//2:
+            min_answer += n*n//4*2
+            a += half_n
         else:
-            min_answer += n*n*3
-            c -= n
-            r -= n
+            min_answer += (n*n//4)*3
+            a += half_n
+            b += half_n
+            
+
+    n = half_n
     
     
 print(min_answer)
