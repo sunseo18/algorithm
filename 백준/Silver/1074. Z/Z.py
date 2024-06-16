@@ -1,29 +1,29 @@
-N, r, c = map(int, input().split())
+import sys
 
-ans = 0
+n, r, c = map(int, sys.stdin.readline().strip().split())
 
-while N != 0:
+min_answer = 0
 
-	N -= 1
+a, b = 0, 0
 
-	# 제2사분면
-	if r < 2 ** N and c < 2 ** N:
-		ans += ( 2 ** N ) * ( 2 ** N ) * 0
+n = 2**n
+while n != 1:
+    n = n//2
 
-	# 제1사분면
-	elif r < 2 ** N and c >= 2 ** N: 
-		ans += ( 2 ** N ) * ( 2 ** N ) * 1
-		c -= ( 2 ** N )
-        
-	# 제3사분면    
-	elif r >= 2 ** N and c < 2 ** N: 
-		ans += ( 2 ** N ) * ( 2 ** N ) * 2
-		r -= ( 2 ** N )
-        
-	# 제4사분면    
-	else:
-		ans += ( 2 ** N ) * ( 2 ** N ) * 3
-		r -= ( 2 ** N )
-		c -= ( 2 ** N )
+    if r < n:
+        if c < n:
+            pass
+        else:
+            min_answer += n*n
+            c -= n
+    else:
+        if c < n:
+            min_answer += n*n*2
+            r -= n
+        else:
+            min_answer += n*n*3
+            c -= n
+            r -= n
     
-print(ans)
+    
+print(min_answer)
