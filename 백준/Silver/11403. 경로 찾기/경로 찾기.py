@@ -13,28 +13,19 @@ vertex_dict = dict()
 for i in range(n):
     queue = deque()
     visited = [False for _ in range(n)]
-    visited[i] = True
 
     queue.append(i)
-    visited[i] = True
-
     while queue:
         cur = queue.popleft()
-
+        
         for nextv in range(n):
-            if array[cur][nextv] == 1:
-                if nextv == i:
-                    if not i in vertex_dict.keys():
-                        vertex_dict[i] = [i]
-                    else:
-                        vertex_dict[i].append(i)
-                elif not visited[nextv]:
-                    visited[nextv] = True
-                    if not i in vertex_dict.keys():
-                        vertex_dict[i] = [nextv]
-                    else:
-                        vertex_dict[i].append(nextv)
-                    queue.append(nextv)
+            if array[cur][nextv] == 1 and not visited[nextv]:
+                visited[nextv] = True
+                if not i in vertex_dict.keys():
+                    vertex_dict[i] = [nextv]
+                else:
+                    vertex_dict[i].append(nextv)
+                queue.append(nextv)
                 
 for key in vertex_dict.keys():
     for value in vertex_dict[key]:
