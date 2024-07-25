@@ -1,37 +1,24 @@
-import sys
-input = sys.stdin.readline
+from collections import deque
 
-R, C = map(int, input().split())
+def bfs(original, x, y):
+    max_len = 1
+    q = set([(x, y, original[y][x])])  # set로 변경
+    while q:
+        x, y, alpha = q.pop()  # pop으로 변경
+        max_len = max(max_len, len(alpha))
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < c and 0 <= ny < r and original[ny][nx] not in alpha:
+                q.add((nx, ny, alpha + original[ny][nx]))  # add로 변경
+    return max_len
 
-map_ = []
-for _ in range(R):
-    map_.append(list(input().strip()))
+r, c = map(int, input().split())
+original = []
+for _ in range(r):
+    original.append(list(input()))
 
-visited = [False] * 26
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
 
-def alpha_to_index(alpha):
-    return ord(alpha) - 65
-
-
-max_depth = 1
-
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
-
-def dfs(i, j, depth):
-    global max_depth
-    if depth > max_depth:
-        max_depth = depth
-    
-    for d in range(4):
-        ni, nj = i + dx[d], j + dy[d]
-
-        if 0 <= ni < R and 0 <= nj < C:
-            if not visited[alpha_to_index(map_[ni][nj])]:
-                visited[alpha_to_index(map_[ni][nj])] = True
-                dfs(ni, nj, depth+1)
-                visited[alpha_to_index(map_[ni][nj])] = False
-    
-visited[alpha_to_index(map_[0][0])] = True                        
-dfs(0, 0, 1)
-print(max_depth)
+print(bfs(original, 0, 0))
