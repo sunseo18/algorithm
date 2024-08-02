@@ -22,8 +22,6 @@ def dfs(idx,cnt):
     global min_ans
 
     if cnt == M:
-        # print(visited[:])
-
         ans = 0
 
         for i in home: # 집 좌표에 대해 모든 치킨집과의 거리를 구함
@@ -33,6 +31,8 @@ def dfs(idx,cnt):
                     check_num = abs(i[0]-chick[j][0])+abs(i[1]-chick[j][1])
                     distance = min(distance,check_num) # 각 집에 대해 치킨 거리가 최소인 값을 구함
             ans +=distance
+            if ans > min_ans:
+                return
         min_ans = min(ans,min_ans)
 
         return
