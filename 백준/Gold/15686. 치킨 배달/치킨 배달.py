@@ -37,12 +37,11 @@ def dfs(idx,cnt):
 
         return
 
+		# 어짜피 idx 까지는 다 탐색한 상황일테니까 0이 아니라 idx부터 검사해도 됨
     for i in range(idx,len(chick)):
-        if not visited[i]:
-
-            visited[i] = True
-            dfs(i+1,cnt+1)
-            visited[i]=False
+        visited[i] = True
+        dfs(i+1,cnt+1)
+        visited[i]=False
 
 
 
