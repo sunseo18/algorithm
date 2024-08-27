@@ -11,11 +11,11 @@ class Main {
 
         int n = Integer.parseInt(br.readLine());
 
-        int[] weight = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-        int[] point = Stream.of(br.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        long[] weight = Stream.of(br.readLine().split(" ")).mapToLong(Long::parseLong).toArray();
+        long[] point = Stream.of(br.readLine().split(" ")).mapToLong(Long::parseLong).toArray();
 
-        int smallest = point[0];
-        int answer = 0;
+        long smallest = point[0];
+        long answer = 0;
         for (int i = 1; i < n; i++) {
             if (point[i] >= smallest) {
                 answer += weight[i - 1] * smallest;
