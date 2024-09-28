@@ -1,19 +1,38 @@
 import sys
-input = sys.stdin.readline
 
-A = [""] + list(input().rstrip())
-B = [""] + list(input().rstrip())
-LCS = [[""]*len(B) for _ in range(len(A))]
+a = sys.stdin.readline().strip()
+b = sys.stdin.readline().strip()
 
-for i in range(1, len(A)):
-    for j in range(1, len(B)):
-        if A[i] == B[j]:
-            LCS[i][j] = LCS[i-1][j-1] + A[i]
+
+a_length = len(a)
+b_length = len(b)
+
+
+dp = [[0 for _ in range(a_length+1)] for _ in range(b_length+1)]
+
+for i in range(1, b_length+1):
+    for j in range(1, a_length+1):
+        if b[i-1] == a[j-1]:
+            dp[i][j] = dp[i-1][j-1] + 1
         else:
-            if len(LCS[i-1][j]) >= len(LCS[i][j-1]):
-                LCS[i][j] = LCS[i-1][j]
-            else:
-                LCS[i][j] = LCS[i][j-1]
+            dp[i][j] = max(dp[i][j-1], dp[i-1][j])
 
-result = LCS[-1][-1]
-print(len(result), result, sep="\n")
+
+        
+print(dp[i][j])
+
+tmp = ""
+while i > 0 and j > 0:
+    if a[j-1] == b[i-1]:
+        tmp += a[j-1]
+        i-=1
+        j-=1
+    else:
+        if dp[i-1][j] > dp[i][j-1]:
+            i-=1
+        else:
+            j-=1
+
+for i in range(len(tmp)-1, -1, -1):
+    print(tmp[i], end="")
+
