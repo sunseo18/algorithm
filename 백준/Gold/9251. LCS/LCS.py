@@ -1,15 +1,22 @@
 import sys
-read = sys.stdin.readline
 
-word1, word2 = read().strip(), read().strip()
-l1, l2 = len(word1), len(word2)
-cache = [0] * l2
+a = sys.stdin.readline().strip()
+b = sys.stdin.readline().strip()
 
-for i in range(l1):
-    cnt = 0
-    for j in range(l2):
-        if cnt < cache[j]:
-            cnt = cache[j]
-        elif word1[i] == word2[j]:
-            cache[j] = cnt + 1
-print(max(cache))
+
+a_length = len(a)
+b_length = len(b)
+
+
+dp = [[0 for _ in range(a_length+1)] for _ in range(b_length+1)]
+
+for i in range(1, b_length+1):
+    for j in range(1, a_length+1):
+        if b[i-1] == a[j-1]:
+            dp[i][j] = dp[i-1][j-1] + 1
+        else:
+            dp[i][j] = max(dp[i][j-1], dp[i-1][j])
+
+
+        
+print(dp[i][j])
