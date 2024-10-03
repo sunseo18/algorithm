@@ -1,34 +1,67 @@
 import sys
-from collections import deque
- 
-T=int(sys.stdin.readline())
- 
+
+input = sys.stdin.readline
+
+
+T = int(input())
+
+
+def calculate(calculated_weight, key):
+    global dictionary
+    global weight
+
+    if calculated_weight[key] != -1:
+        return calculated_weight[key]
+    # 후보가 여러 개라면
+    if len(dictionary[key]) > 1:
+        _max = -1
+        for candidate in dictionary[key]:
+            if calculated_weight[candidate] == -1:
+                calculated_weight[candidate] = calculate(calculated_weight, candidate)
+            if calculated_weight[candidate] > _max:
+                _max = calculated_weight[candidate]
+                
+        calculated_weight[key] = _max + weight[key]
+    else:
+        if calculated_weight[dictionary[key][0]] == -1:
+            calculated_weight[dictionary[key][0]] = calculate(calculated_weight, dictionary[key][0])
+            
+        calculated_weight[key] = weight[key] + calculated_weight[dictionary[key][0]]
+
+
+
+
+    return calculated_weight[key]
+
+
+
+    
+
+
+
 for _ in range(T):
-    N,K=map(int,sys.stdin.readline().split())#건물수, 건설순서규칙
-    time=[0]+list(map(int,sys.stdin.readline().split()))#건물들의 건설시간
-    seq=[[] for _ in range(N+1)]#건설순서규칙
-    inDegree=[0 for _ in range(N+1)]#진입차수
-    DP=[0 for _ in range(N+1)]#해당 건물까지 걸리는 시간
- 
-    for _ in range(K):#건설순서규칙 저장
-        a,b=map(int,sys.stdin.readline().split())
-        seq[a].append(b)
-        inDegree[b]+=1
- 
-    q = deque()
-    for i in range(1,N+1):#진입차수 0인거 찾아서 큐에 넣기
-        if inDegree[i]==0:
-            q.append(i)
-            DP[i]=time[i]
- 
-    while q:
-        a=q.popleft()
-        for i in seq[a]:
-            inDegree[i]-=1#진입차수 줄이고
-            DP[i]=max(DP[a]+time[i],DP[i])#DP를 이용해 건설비용 갱신
-            if inDegree[i]==0:
-                q.append(i)
- 
- 
-    ans=int(sys.stdin.readline())
-    print(DP[ans])
+    N, K = map(int, input().split())
+
+    nodes = {n for n in range(1, N+1)}
+
+    weight = [0] + list(map(int, input().split()))
+    calculated_weight = [-1] * (N+1)
+    
+    dictionary = dict()
+    for i in range(K):
+        s, e = map(int, input().split())
+
+        nodes.discard(e)
+        if e in dictionary:
+            dictionary[e].append(s)
+        else:
+            dictionary[e] = [s]
+
+    for n in nodes:
+        calculated_weight[n] = weight[n]
+        
+    Q = int(input())
+        
+    calculate(calculated_weight, Q)
+
+    print(calculated_weight[Q])
