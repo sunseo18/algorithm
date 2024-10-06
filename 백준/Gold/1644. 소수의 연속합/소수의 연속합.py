@@ -1,28 +1,54 @@
+import sys
 
-import math
-
+input = sys.stdin.readline
 N = int(input())
+ 
+MAX = 4000000
+sosu = [False, False] + [True] * (MAX-1)
 
-a = [False, False] + [True] * (N-1)
-prime_num = []
+for i in range(2, MAX+1):
+    if sosu[i]:
+        for j in range(2*i, MAX+1, i):
+            sosu[j] = False
 
-for i in range(2, N+1):
-    if a[i]:
-        prime_num.append(i)
-        for j in range(2*i, N+1, i):
-            a[j] = False
+sosu_list = [0]
+
+for i in range(1, MAX+1):
+    if sosu[i]:
+        sosu_list.append(i)
+
+       
+    
+
+
 
 answer = 0
-start = 0
-end = 0
-while end <= len(prime_num):
-    temp_sum = sum(prime_num[start:end])
-    if temp_sum == N:
+i, j = 0, 0
+
+sosu_length = len(sosu_list)
+
+
+tmp = sosu_list[i]
+while i < sosu_length:
+    if tmp == N:
         answer += 1
-        end += 1
-    elif temp_sum < N:
-        end += 1
+        j+= 1
+        if j >= sosu_length:
+            break
+        tmp += sosu_list[j]
+        
+    elif tmp < N:
+        j+=1
+        if j >= sosu_length:
+            break
+        tmp += sosu_list[j]
+
     else:
-        start += 1
+        tmp -= sosu_list[i]
+        i+=1
+
 
 print(answer)
+
+    
+   
