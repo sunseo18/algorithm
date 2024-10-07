@@ -26,13 +26,15 @@ for k in edges.keys():
     if degrees[k-1] == 0:
         queue.append(k)
 
-answer = []
 visited = [False] * N
 
 while queue:
     start = queue.popleft()
 
-    answer.append(start)
+
+    sys.stdout.write(str(start))
+    sys.stdout.write(' ')
+    
     visited[start-1] = True
     
     if start not in edges:
@@ -43,10 +45,6 @@ while queue:
 
         if degrees[second-1] == 0:
             queue.append(second)
-
-for a in answer:
-    sys.stdout.write(str(a))
-    sys.stdout.write(' ')
             
 for i in range(N):
     if not visited[i]:
