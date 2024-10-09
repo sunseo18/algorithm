@@ -52,10 +52,8 @@ def dfs(i, j, direction):
     global answer
     
     if _map[i][j] == 0:
-        # print(f"[{i}][{j}] 청소, 방향: {direction}")
         answer += 1
     _map[i][j] = 2
-
 
 
     # 현재 칸 주변 청소되지 않은 빈 칸이 있는지 검사
@@ -65,26 +63,20 @@ def dfs(i, j, direction):
         if 0 <= ni < N and 0 <= nj < M:
             if _map[ni][nj] == 0:
                 all_clean_flag = False
-    #print(f"전체 청소 됐나?: {all_clean_flag}")
     
     # 네 방향 다 청소 됨
     if all_clean_flag:
         ri, rj = reverse(i, j, direction)
-        # 뒤쪽 칸이 벽이면 작동 중단
         if (ri < 0 or ri >= N) or (rj < 0 or rj >= M):
-            #print("작동 중단")
             return
         if _map[ri][rj] == 1:
             return
-        # 후진할 수 있으면 한 칸 후진 후 반복
         else:
             dfs(ri, rj, direction)
 
     # 네 방향 중 청소 안 된 곳 있음
     else:
-        # 회전
         nd = rotate(direction)
-        # 회전 후 갈 수 있는 칸
         ni, nj = move(i, j, nd)
 
         if 0 <= ni < N and 0 <= nj < M and _map[ni][nj] != 1 and _map[ni][nj] == 0:
