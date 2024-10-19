@@ -1,32 +1,30 @@
 import sys
+
 input = sys.stdin.readline
 
-N = int(input())
-A = [*map(int, input().split())]
+n = int(input())
+numbers = list(map(int, input().split()))
 
-LIS = [A[0]]
 
-def findPlace(e):
-    start = 0
-    end = len(LIS) - 1
-    
+LIS = [numbers[0]]
+
+def index(start, end, LIS, number):
     while start <= end:
-        mid = (start + end) // 2
-        
-        if LIS[mid] == e:
+        mid = (start + end ) // 2
+        if LIS[mid] == number:
             return mid
-        elif LIS[mid] < e:
-            start = mid + 1
+        elif LIS[mid] > number:
+            end = mid-1
         else:
-            end = mid - 1
-            
+            start = mid+1
+
     return start
 
-for item in A:
-    if LIS[-1] < item:
-        LIS.append(item)
+for i in range(1, n):
+    if LIS[-1] < numbers[i]:
+        LIS.append(numbers[i])
+
     else:
-        idx = findPlace(item)
-        LIS[idx] = item
+        LIS[index(0, len(LIS)-1, LIS, numbers[i])] = numbers[i]
 
 print(len(LIS))
