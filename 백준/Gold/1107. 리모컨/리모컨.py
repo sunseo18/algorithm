@@ -1,22 +1,51 @@
 import sys
+
 input = sys.stdin.readline
-target = int(input())
+
+sys.setrecursionlimit(10**9)
+
 n = int(input())
-broken = list(map(int, input().split()))
+broken_numbers_length = int(input())
 
-# 현재 채널에서 + 혹은 -만 사용하여 이동하는 경우
-min_count = abs(100 - target)
+numbers = [str(i) for i in range(0, 10)]
 
-for nums in range(1000001):
-    nums = str(nums)
+if broken_numbers_length != 0:
+    broken_numbers = list(input().split())
+
+    for i in range(broken_numbers_length):
+        numbers.remove(broken_numbers[i])
+
+
+if n == 100:
+    print(0)
+    sys.exit()
+
+
+_min = abs(n - 100)
+
+def dfs(tmp, numbers, depth):
+    global _min
+
+
     
-    for j in range(len(nums)):
-        # 각 숫자가 고장났는지 확인 후, 고장 났으면 break
-        if int(nums[j]) in broken:
-            break
+    if depth == -1:
+        return
 
-        # 고장난 숫자 없이 마지막 자리까지 왔다면 min_count 비교 후 업데이트
-        elif j == len(nums) - 1:
-            min_count = min(min_count, abs(int(nums) - target) + len(nums))
 
-print(min_count)
+    for i in range(len(numbers)):
+        tmp[depth] = numbers[i]
+        
+        tmp_number = int("".join(tmp))
+        tmp_min = len(str(tmp_number)) + abs(tmp_number - n)
+
+        if tmp_min < _min:
+            _min = tmp_min
+            
+        dfs(tmp, numbers, depth-1)
+        tmp[depth] = '0'
+
+
+dfs(['0' for _ in range(6)], numbers, 5)
+
+print(_min)
+
