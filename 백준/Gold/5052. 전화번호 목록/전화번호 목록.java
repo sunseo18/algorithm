@@ -20,26 +20,26 @@ public class Main {
 
             int n = Integer.parseInt(br.readLine());
 
-            ArrayList<Tree> root = new ArrayList<>();
+            Tree root = new Tree('r');
 
             for (int i = 0; i < n; i++) {
                 String word = br.readLine();
-                ArrayList<Tree> before = root;
+                Tree before = root;
 
                 for (int j = 0; j < word.length(); j++) {
                     char c = word.charAt(j);
 
-                    Tree nodeWithCurChar = find(before, c);
+                    Tree nodeWithCurChar = find(before.after, c);
                     if (nodeWithCurChar != null) {
-                        before = nodeWithCurChar.after;
+                        before = nodeWithCurChar;
 
                         if (j == word.length() - 1) {
                             nodeWithCurChar.isEnd();
                         }
                     } else {
                         Tree nodeNew = new Tree(c);
-                        before.add(nodeNew);
-                        before = nodeNew.after;
+                        before.after.add(nodeNew);
+                        before = nodeNew;
 
                         if (j == word.length() - 1) {
                             nodeNew.isEnd();
@@ -49,9 +49,7 @@ public class Main {
                 }
             }
 
-            for (Tree node : root) {
-                dfs(node);
-            }
+            dfs(root);
 
             if (flag) {
                 bw.write("YES\n");
