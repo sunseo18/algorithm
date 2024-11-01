@@ -40,11 +40,11 @@ public class Main {
     for (int i = 1; i < N; i++) {
         int type = checkType(minStart, maxEnd, lineList.get(i));
         
-        if (type == 1) {
+        if (type == PARTIALLY_LONGER) {
             answer += lineList.get(i).end - maxEnd;
             maxEnd = lineList.get(i).end;
         }
-        else if (type == 3) {
+        else if (type == TOTALLY_NEW) {
             answer += lineList.get(i).end - lineList.get(i).start;
             minStart = lineList.get(i).start;
             maxEnd = lineList.get(i).end;
