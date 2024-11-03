@@ -34,7 +34,7 @@ def dfs(tmp, depth):
                 jamo_dict['ja'] -= 1
             tmp[depth] = ''
     else:
-        for j in range(C):
+        for j in range(depth, C):
             if word[j] > tmp[depth-1]:
                 tmp[depth] = word[j]
 
