@@ -10,14 +10,14 @@ public class Main {
 
     public static int maxFirstBox(int i, int j) {
         int sumBox = array[i][j] + array[i][j+1] + array[i+1][j] + array[i+1][j+1];
-        int result = 0;
 
+        int minOfFour = 10001;
         for(int a = i; a < i+2; a++) {
             for(int b = j; b<j+2; b++) {
-                result  = Math.max(result, (sumBox - array[a][b]));
+                minOfFour =  Math.min(array[a][b], minOfFour);
             }
         }
-        return result;
+        return sumBox - minOfFour;
     }
 
     public static int maxSecondBoxHorizontal(int i, int j ) {
@@ -42,7 +42,7 @@ public class Main {
             for (int j = 0; j < col; j++) {
                 // 첫 번째 상자
                 if (i+1<row) {
-                    if (j+1<row) {
+                    if (j+1<col) {
                         answer = Math.max(answer, maxFirstBox(i, j));
                     }
                 } 
