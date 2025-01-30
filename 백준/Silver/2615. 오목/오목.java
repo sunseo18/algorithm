@@ -9,7 +9,10 @@ public class Main
     
     private static int length = 19;
     private static int[][] board = new int[length][length];
-
+    
+    private static int[] di = {1, 1, 0, -1};
+    private static int[] dj = {0, 1, 1, 1};
+    
     public static void main(String args[]) throws IOException {
         StringTokenizer st = null;
         
@@ -22,7 +25,7 @@ public class Main
         
         for ( int i = 0; i < length; i++) {
             for ( int j = 0; j < length; j++) {
-                if (board[i][j] != 0 && checkWin(i, j, board[i][j])) {
+                if (board[i][j] != 0 && hasWon(i, j, board[i][j])) {
                     if (board[i][j] == 1) System.out.println("1");
                     else if (board[i][j] == 2) System.out.println("2");
                     
@@ -45,55 +48,40 @@ public class Main
             }   
         }
     }
-
-    private static boolean checkWin(int i, int j, int color) {
-        // checkRight
-        if ( j-1 < 0 || (j-1 >= 0 && board[i][j-1] != color)) {
-            int b = j;
-            for (; b < j+6; b++) {
-                // 벽에 마주쳤을 때
-                if (b == length) break;
-                // 연속되지 않을 때
-                if (board[i][b] != color) break;
-            }
-            if (b == j+5) return true;
-        }
-        
-        // checkDown
-        if ( i-1 < 0 || (i-1 >= 0 && board[i-1][j] != color)) {
-            int a = i;
-            for (; a < i+6; a++) {
-                if (a == length) break;
-                if (board[a][j] != color) break;
-            }
-            if (a == i+5) return true;
-        }
-        
-        // checkRightUp
-        
-        if ( (i+1 >= length || j-1 < 0) || (i+1<length && j-1 >= 0 && board[i+1][j-1] != color)) {
-            int a = i;
-            int b = j;
-            for (; a > i-6 && b < j+6; a--, b++) {
-                if (a < 0) break;
-                if (b == length) break;
-                if (board[a][b] != color) break;
-            }
-            if ((a == i-5) && (b == j+5)) return true;
-        }
-        
-        // checkRightDown
-        if ( (i-1 < 0 || j-1 <0) || (i-1>=0 && j-1>=0 && board[i-1][j-1] != color)) {
-            int a = i;
-            int b = j;
-            for (; a < i+6 && b < j + 6; a++, b++) {
     
-                if (a == length) break;
-                if (b == length) break;
-                if (board[a][b] != color) break;
+    private static boolean hasWon(int i, int j, int color) {
+        for (int d = 0; d < 4; d++) {
+            int ni = i;
+            int nj = j;
+            int cnt = 1;
+            for (int y = 0; y < 5; y++, cnt++) {
+                ni += di[d];
+                nj += dj[d];
+                
+                // 오목판 넘으면 그만두기
+                if ( ni < 0 || ni >= length || nj < 0 || nj >= length) 
+                    break;
+                    
+                // 색이 다르면 그만두기
+                if ( board[ni][nj] != color) 
+                    break;
+                
             }
-            if ((a==i+5) && (b == j+5)) return true;
+            
+            // 오목 다섯개 일때 이전 방향 검사 후 이겼는지 최종 검사
+            if (cnt == 5) {
+                int oi = i - di[d];
+                int oj = j - dj[d];
+                
+                // 오목판 넘으면 이긴 거
+                if ( oi < 0 || oi >= length || oj < 0 || oj >= length) return true;
+                // 반대 방향 색 같으면 6개 이상으로 진 거 
+                else if ( board[oi][oj] == color ) return false;
+                // 반대 방향 색 다르면 이긴 거 
+                else return true;
+            }
         }
         return false;
     }
+
 }
